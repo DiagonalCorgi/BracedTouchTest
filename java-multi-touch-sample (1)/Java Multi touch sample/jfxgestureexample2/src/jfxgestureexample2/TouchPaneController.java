@@ -54,6 +54,7 @@ public class TouchPaneController implements Initializable, ISelectableItemContai
 	@FXML public Pane Bottom_L_Pane;
 	@FXML public Pane Bottom_M_Pane;
 	@FXML public Pane Bottom_R_Pane;
+	MovableElementController elem = new MovableElementController(this);
 
 	private ArrayList<Pane> paneArrayList = new ArrayList<Pane>();
 
@@ -76,47 +77,33 @@ public class TouchPaneController implements Initializable, ISelectableItemContai
 	@FXML
 	private void handleAddElement(ActionEvent event) throws IOException {
 
-		MovableElementController elem = new MovableElementController(this);
+
 		elem.setTranslateX(touchPane.getWidth() / 2.0);
 		elem.setTranslateY(touchPane.getHeight() / 2.0);
 		touchPane.getChildren().remove(buttons);
 		touchPane.getChildren().add(elem);
 		touchPane.getChildren().add(buttons);
 
-		Pane redPane = paneArrayList.get(0);
-
-		System.out.println("Elem coords: " + elem.dragPane.getLayoutX() + ", " + elem.getLayoutY());
-
-
-			if (elem.isBracedPosition &&
-					(elem.dragPane.getLayoutX() - redPane.getLayoutX() < 50 ||
-							elem.dragPane.getLayoutX() - redPane.getLayoutX()> -50)
-					&& (elem.dragPane.getLayoutY() - redPane.getLayoutY() < 50 ||
-					elem.dragPane.getLayoutY() - redPane.getLayoutY() > -50)) {
-				System.out.println("element is dragged");
-				redPane.setStyle("-fx-background-color: green");
-			}
-
-			redPane.setOnDragOver(new EventHandler<DragEvent>() {
+			elem.setOnDragDetected(new EventHandler<MouseEvent>() {
 				@Override
-				public void handle(DragEvent event) {
-					/* data is dragged over the target */
-					/* accept it only if it is not dragged from the same node
-					 * and if it has a string data */
-					if (event.getGestureSource() != currentSelection) {
-						event.acceptTransferModes(TransferMode.MOVE);
-						System.out.println("drag detected");
-					}
+				public void handle(MouseEvent event) {
+					Dragboard db = elem.startDragAndDrop(TransferMode.ANY);
+
+					ClipboardContent content = new ClipboardContent();
+					content.putString(elem.getId());
+					System.out.println("drag detected with element id: " + elem.getId());
 					event.consume();
 				}
 			});
+
 	}
+
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setScrollBtn.setUserData(GestureSelection.SCROLL);
 		setSwipeBtn.setUserData(GestureSelection.SWIPE);
-		gridPane.setStyle("-fx-background-color: aqua");
+		gridPane.setStyle("-fx-background-color: #facd94");
 
 		paneArrayList.add(Top_L_Pane);
 		paneArrayList.add(Top_M_Pane);
@@ -131,26 +118,19 @@ public class TouchPaneController implements Initializable, ISelectableItemContai
 		System.out.println("Original List : \n" + paneArrayList);
 
 
+		/**
+		 * Randomizes the pane to test drag over
+		 */
 		randomizePaneBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				Collections.shuffle(paneArrayList, new Random());
 				System.out.println("\nShuffled List with Random() : \n"
 						+ paneArrayList);
-				paneArrayList.get(0).setStyle("-fx-background-color: red;");
+				paneArrayList.get(0).setStyle("-fx-background-color: #ff0000;");
 				System.out.println("Red pane coords: " + paneArrayList.get(0).getLayoutX() + ", " + paneArrayList.get(0).getLayoutY());
-				paneArrayList.remove(0);
-
 			}
 		});
-
-
-
-		System.out.println(currentSelection);
-
-
-
-
 
 		gestureSelectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
@@ -159,6 +139,7 @@ public class TouchPaneController implements Initializable, ISelectableItemContai
 			}
 		});
 	}
+
 
 	@Override
 	public void registerItem(ISelectableItem rect) {
@@ -202,6 +183,7 @@ public class TouchPaneController implements Initializable, ISelectableItemContai
 	}
 
 
+
 	@FXML
 	public void onScroll(ScrollEvent t) {
 		if (selectedGesture == GestureSelection.SCROLL && currentSelection != null) {
@@ -229,10 +211,11 @@ public class TouchPaneController implements Initializable, ISelectableItemContai
 		if (currentSelection != null) {
 			Node selNode = currentSelection.getCorrespondingNode();
 			selNode.setRotate(selNode.getRotate() + t.getAngle());
-		}
 
+		}
 		t.consume();
 	}
+
 
 	@FXML
 	public void onSwipe(SwipeEvent t) {

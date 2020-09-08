@@ -39,12 +39,10 @@ public class MovableElementController extends Pane implements ISelectableItem {
 			lastSplit = new SimpleDoubleProperty();
 	private Duration time = Duration.ZERO, splitTime = Duration.ZERO;
 	public boolean isBracedPosition = false;
-	public Pane dragPane;
 
 
-
-
-
+	@FXML
+	private Pane dragPane;
 
 
 	public MovableElementController(ISelectableItemContainer container){
@@ -56,14 +54,14 @@ public class MovableElementController extends Pane implements ISelectableItem {
 		loader.setRoot(this);
 		loader.setController(this);
 
+
+
+
 		try {
 			loader.load();
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
-
-
-
 	}
 
 	@Override
@@ -84,8 +82,6 @@ public class MovableElementController extends Pane implements ISelectableItem {
 
 
 	public void onTouchPressed(TouchEvent t) {
-
-
 		if (moveInProgress == false) {
 			if (m_container.getRegisterredItem() != MovableElementController.this) {
 				m_container.unregisterItem();

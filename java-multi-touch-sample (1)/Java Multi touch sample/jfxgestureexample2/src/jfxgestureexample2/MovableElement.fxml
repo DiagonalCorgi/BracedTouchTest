@@ -3,7 +3,7 @@
 <?import java.net.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root fx:id="dragPane"  onScroll="#onScroll" onSwipeDown="#onSwipe" onSwipeLeft="#onSwipe" onSwipeRight="#onSwipe" onSwipeUp="#onSwipe" onTouchMoved="#onTouchMoved" onTouchPressed="#onTouchPressed" onTouchReleased="#onTouchReleased" prefHeight="196.0" prefWidth="224.0" styleClass="mainFxmlClassUnselected" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="dragPane" onScroll="#onScroll" onSwipeDown="#onSwipe" onSwipeLeft="#onSwipe" onSwipeRight="#onSwipe" onSwipeUp="#onSwipe" onTouchMoved="#onTouchMoved" onTouchPressed="#onTouchPressed" onTouchReleased="#onTouchReleased" prefHeight="196.0" prefWidth="224.0" styleClass="mainFxmlClassUnselected" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <stylesheets>
     <URL value="@movableelement.css" />
   </stylesheets>
