@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane onTouchPressed="#onTouchPressed" prefHeight="577.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jfxgestureexample2.DragController">
+   <children>
+      <Circle fx:id="TargetCircleTM" fill="DODGERBLUE" layoutX="462.0" layoutY="83.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleCL" fill="DODGERBLUE" layoutX="126.0" layoutY="289.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleTR" fill="DODGERBLUE" layoutX="776.0" layoutY="83.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleBL" fill="DODGERBLUE" layoutX="126.0" layoutY="482.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleBM" fill="DODGERBLUE" layoutX="462.0" layoutY="482.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleBR" fill="DODGERBLUE" layoutX="776.0" layoutY="482.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleTL" fill="DODGERBLUE" layoutX="126.0" layoutY="83.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="TargetCircleCR" fill="DODGERBLUE" layoutX="776.0" layoutY="289.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="SourceCircle" fill="#b5e364" layoutX="462.0" layoutY="269.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="generateTestBtn" layoutX="8.0" layoutY="2.0" mnemonicParsing="false" text="Generate Test" />
+   </children>
+</AnchorPane>
