@@ -1,4 +1,4 @@
-package jfxgestureexample2;
+package jfxgestureexample2.Drag;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import jfxgestureexample2.InteractionLogger;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +49,7 @@ public class DragController extends Circle {
 
     private double newY, newX = 0;
     private List<Circle> targetList = new ArrayList<Circle>();
+    private List<Circle> targetListCompleted = new ArrayList<Circle>();
 
 
 
@@ -85,21 +86,16 @@ public class DragController extends Circle {
             InteractionLogger.log(Level.INFO, "Time of tap:" + lastSplit);
             if (lastSplit.getValue() < 0.5 && !isBracedPosition) {
                 isBracedPosition = true;
-                getStyleClass().clear();
-                getStyleClass().add("mainFxmlClassBracedSelected");
+                SourceCircle.setStyle("-fx-fill: green");
             } else if (lastSplit.getValue() > 0.5) {
                 isBracedPosition = false;
+                SourceCircle.setStyle("-fx-fill: blue");
             }
             InteractionLogger.log(Level.INFO, "Braced is " + isBracedPosition);
         }
 
         t.consume();
 
-        if (isBracedPosition == true) {
-            SourceCircle.setStyle("-fx-fill: green");
-        } else if (!isBracedPosition) {
-            SourceCircle.setStyle("-fx-fill: blue");
-        }
 
         SourceCircle.setOnTouchPressed(new EventHandler<TouchEvent>() {
             @Override
@@ -126,9 +122,12 @@ public class DragController extends Circle {
                 targetList.add(TargetCircleCR);
 
                 Collections.shuffle(targetList, new Random());
-                System.out.println(targetList.get(0));
                 Circle chosen_target = targetList.get(0);
                 chosen_target.setStyle("-fx-fill: red");
+                isBracedPosition = false;
+                if (!isBracedPosition) {
+                    SourceCircle.setStyle("-fx-fill: blue");
+                }
             }
         });
 
@@ -138,15 +137,13 @@ public class DragController extends Circle {
                 if (event.getTouchPoint().getId() == touchId) {
                     SourceCircle.setTranslateX(event.getTouchPoint().getSceneX() - newX);
                     SourceCircle.setTranslateY(event.getTouchPoint().getSceneY() - newY);
-                    Double SourceCoordsX = SourceCircle.getTranslateX() + SourceCircle.getLayoutX();
-                    Double SourceCoordsY = SourceCircle.getTranslateY() + SourceCircle.getLayoutY();
+                    double SourceCoordsX = SourceCircle.getTranslateX() + SourceCircle.getLayoutX();
+                    double SourceCoordsY = SourceCircle.getTranslateY() + SourceCircle.getLayoutY();
                      if ((SourceCoordsX - chosen_target.getLayoutX() < 10 &&
                      SourceCoordsX - chosen_target.getLayoutX() > -10) &&
                      (SourceCoordsY - chosen_target.getLayoutY() < 10 &&
-                     SourceCoordsY - chosen_target.getLayoutY() > -10)&& isBracedPosition) {
+                     SourceCoordsY - chosen_target.getLayoutY() > -10) && isBracedPosition) {
                      chosen_target.setStyle("-fx-fill: green");
-                         System.out.println("Source Coords: " + (SourceCircle.getTranslateX() + SourceCircle.getLayoutX()) + "," + (SourceCircle.getTranslateY() + SourceCircle.getLayoutY()));
-                         System.out.println("Target Coords: " +chosen_target.getLayoutX() + "," + chosen_target.getLayoutY());
                      }
                 }
                 event.consume();

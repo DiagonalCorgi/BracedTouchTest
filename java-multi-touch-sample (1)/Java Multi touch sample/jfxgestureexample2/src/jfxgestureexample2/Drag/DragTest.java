@@ -1,11 +1,9 @@
-package jfxgestureexample2;
+package jfxgestureexample2.Drag;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 

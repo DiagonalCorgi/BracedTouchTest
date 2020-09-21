@@ -1,4 +1,4 @@
-package jfxgestureexample2;
+package jfxgestureexample2.Rotation;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +14,7 @@ import javafx.scene.input.RotateEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.shape.Arc;
 import javafx.util.Duration;
+import jfxgestureexample2.InteractionLogger;
 
 import java.text.DecimalFormat;
 import java.util.logging.Level;
