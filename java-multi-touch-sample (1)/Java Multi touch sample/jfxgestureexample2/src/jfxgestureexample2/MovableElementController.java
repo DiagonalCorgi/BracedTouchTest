@@ -54,9 +54,6 @@ public class MovableElementController extends Pane implements ISelectableItem {
 		loader.setRoot(this);
 		loader.setController(this);
 
-
-
-
 		try {
 			loader.load();
 		} catch (IOException exception) {
