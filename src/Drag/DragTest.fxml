@@ -15,6 +15,6 @@
       <Circle fx:id="TargetCircleTL" fill="DODGERBLUE" layoutX="126.0" layoutY="83.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="TargetCircleCR" fill="DODGERBLUE" layoutX="776.0" layoutY="289.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="SourceCircle" fill="#b5e364" layoutX="462.0" layoutY="269.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="generateTestBtn" layoutX="8.0" layoutY="2.0" mnemonicParsing="false" text="Next Target" />
+      <Button fx:id="generateTestBtn" layoutX="8.0" layoutY="2.0" mnemonicParsing="false" text="Randomize Target" />
    </children>
 </AnchorPane>

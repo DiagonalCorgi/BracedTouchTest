@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
@@ -16,9 +17,15 @@
        <RowConstraints maxHeight="968.0" minHeight="10.0" prefHeight="525.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Button fx:id="rBtn" mnemonicParsing="false" onAction="#handle" text="Randomize Angle" />
+         <Button fx:id="rBtn" mnemonicParsing="false" onAction="#handle" text="Randomize Angle">
+            <GridPane.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </GridPane.margin></Button>
          <Label fx:id="sourceDegrees" text="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-          <Arc fx:id="source" fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+          <Arc fx:id="source" fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <GridPane.margin>
+               <Insets />
+            </GridPane.margin></Arc>
          <Label fx:id="targetDegrees" text="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
           <Arc fx:id="target" fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       </children>
