@@ -1,0 +1,21 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClassUnselected {
+	-fx-background-color: blue;
+	-fx-border-width: 0; 
+}
+
+.mainFxmlClassSelected {
+	-fx-background-color: blue;
+	-fx-border-color: red;
+	-fx-border-width: 3; 
+}
+
+.mainFxmlClassBracedSelected {
+	-fx-background-color: greenyellow;
+	-fx-border-color: red;
+	-fx-border-width: 3;
+}
+
