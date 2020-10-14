@@ -95,6 +95,7 @@ public class RotationController extends Arc {
         }
 
 
+
     }
 
      public void handle(ActionEvent E) {
@@ -123,6 +124,20 @@ public class RotationController extends Arc {
                     target.setStyle("-fx-fill: red");
                 }
                 sourceDegrees.setText(String.valueOf(df.format(source_angle)));
+                event.consume();
+            }
+        });
+
+        source.setOnRotationStarted(new EventHandler<RotateEvent>() {
+            @Override
+            public void handle(RotateEvent event) {
+                event.consume();
+            }
+        });
+
+        source.setOnRotationFinished(new EventHandler<RotateEvent>() {
+            @Override
+            public void handle(RotateEvent event) {
                 event.consume();
             }
         });
