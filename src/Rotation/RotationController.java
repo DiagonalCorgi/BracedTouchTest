@@ -47,6 +47,12 @@ public class RotationController extends Arc {
     private int touchPointId;
     private Point2D prevPos;
 
+
+    /**
+     * Initiates the braced detection engine, tests for the touch point counts and
+     * sets the timer for braced detection.
+     * @param t
+     */
     public void onTouchPressed(TouchEvent t) {
 
         moveInProgress = true;
@@ -97,6 +103,12 @@ public class RotationController extends Arc {
 
 
     }
+
+
+    /**
+     * Handler for the button. Will randomize the angle and output to log.
+     * @param E
+     */
 
      public void handle(ActionEvent E) {
          double max = 180.0;

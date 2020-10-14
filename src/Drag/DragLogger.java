@@ -9,6 +9,10 @@ public class DragLogger {
     public Handler fileHandler;
     Formatter plainText;
 
+    /***
+     * Logger class for the drag test. Outputs to dragLog.txt
+     */
+
     private DragLogger() throws IOException {
         //instance the logger
         logger = Logger.getLogger(DragLogger.class.getName());

@@ -110,6 +110,10 @@ public class DragController extends Circle {
             }
         });
 
+        /**
+         * Handler for the button. Will randomize the target location.
+         * @param E
+         */
 
         generateTestBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override

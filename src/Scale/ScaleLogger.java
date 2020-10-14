@@ -9,6 +9,9 @@ public class ScaleLogger {
     public Handler fileHandler;
     Formatter plainText;
 
+    /***
+     * Logger class for the scale test. Outputs to scaleLog.txt
+     */
     private ScaleLogger() throws IOException {
         //instance the logger
         logger = Logger.getLogger(ScaleLogger.class.getName());

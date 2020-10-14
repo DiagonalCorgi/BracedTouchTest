@@ -9,6 +9,9 @@ public class RotationLogger {
     public Handler fileHandler;
     Formatter plainText;
 
+    /***
+     * Logger class for the rotation test. Outputs to rotationLog.txt
+     */
     private RotationLogger() throws IOException {
         //instance the logger
         logger = Logger.getLogger(RotationLogger.class.getName());
