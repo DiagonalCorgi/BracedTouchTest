@@ -10,10 +10,6 @@ import javafx.stage.Stage;
 public class DragTest  extends Application {
 
 
-    public Circle TargetCircleTM;
-    public Circle TargetCircleCL;
-    public Circle TargetCircleTR;
-
     public static void main(String[] args) {
         launch(args);
     }

@@ -116,11 +116,17 @@ public class ScaleController extends Arc {
          double scale = Math.random() * ((max - min) + 1) + min;
         target.setScaleX(scale);
         target.setScaleY(scale);
+        targetScale.setStyle("-fx-fill: red");
         double target_scale = target.getScaleX();
         targetScale.setText(String.valueOf(df.format(target_scale)));
         ScaleLogger.log(Level.INFO, "Scale of target is " + target.getScaleX());
-    }
 
+    }
+    /**
+     * The scale event. will scale the arc if the user is in a braced position.
+     * Also changes the target's colour to green upon success.
+     * @param t the Event itself.
+     */
 
     public void setOnZoom(ZoomEvent t) {
          if (isBracedPosition) {
@@ -133,6 +139,7 @@ public class ScaleController extends Arc {
                              comparison < 0.05 &&
                              isBracedPosition)
              {
+                 ScaleLogger.log(Level.INFO, "SUCCESS");
                  target.setStyle("-fx-fill: green");
              } else {
                  target.setStyle("-fx-fill: red");
