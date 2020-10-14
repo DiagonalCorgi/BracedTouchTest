@@ -18,9 +18,12 @@ import javafx.util.Duration;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 
+/**
+ * Main Controller class for the rotation test. It has an in-built timer,
+ * button handler and the gesture algorithm implemented inside it.
+ */
+
 public class RotationController extends Arc {
-
-
 
     public Button rBtn;
     public Label sourceDegrees;
@@ -58,7 +61,10 @@ public class RotationController extends Arc {
         moveInProgress = true;
         touchPointId = t.getTouchPoint().getId();
 
-        if (t.getTouchCount() >= 5) {
+        if (t.getTouchCount() < 4) {
+            isBracedPosition = false;
+        }
+        else if (t.getTouchCount() >= 4) {
             if (timeline != null) {
                 splitTime = Duration.ZERO;
                 splitTimeSeconds.set(splitTime.toSeconds());
@@ -82,7 +88,7 @@ public class RotationController extends Arc {
             }
             RotationLogger.log(Level.INFO, "5th Finger Pressed ");
             RotationLogger.log(Level.INFO, "Time of tap:" + lastSplit);
-            if (lastSplit.getValue() < 0.5 && !isBracedPosition) {
+            if (lastSplit.getValue() < 0.5 && !isBracedPosition && t.getTouchCount() >= 5) {
                 isBracedPosition = true;
                 getStyleClass().clear();
                 getStyleClass().add("mainFxmlClassBracedSelected");
@@ -101,8 +107,9 @@ public class RotationController extends Arc {
         }
 
 
-
     }
+
+
 
 
     /**
@@ -121,40 +128,28 @@ public class RotationController extends Arc {
         RotationLogger.log(Level.INFO, "Angle of target is " + target.getRotate());
     }
 
+    /**
+     * The rotate event. will rotate the arc if the user is in a braced position.
+     * Also changes the target's colour to green upon success.
+     * @param E the Event itself.
+     */
     public void setOnRotate(RotateEvent E) {
-        source.setOnRotate(new EventHandler<RotateEvent>() {
-            @Override public void handle(RotateEvent event) {
-                source.setRotate(source.getRotate() + event.getAngle());
-                double source_angle = source.getRotate();
-                RotationLogger.log(Level.INFO, "Rectangle: Rotate Angle " + (source_angle));
-                double angle_checker = source_angle - target.getRotate();
-                if (angle_checker < 5 && angle_checker >-5 && isBracedPosition) {
-                    RotationLogger.log(Level.INFO, "SUCCESS");
-                    target.setStyle("-fx-fill: green");
-                }
-                else {
-                    target.setStyle("-fx-fill: red");
-                }
-                sourceDegrees.setText(String.valueOf(df.format(source_angle)));
-                event.consume();
+        if (isBracedPosition) {
+            source.setRotate(source.getRotate() + E.getAngle());
+            double source_angle = source.getRotate();
+            RotationLogger.log(Level.INFO, "Rectangle: Rotate Angle " + (source_angle));
+            double angle_checker = source_angle - target.getRotate();
+            if (angle_checker < 5 && angle_checker >-5 && isBracedPosition) {
+                RotationLogger.log(Level.INFO, "SUCCESS");
+                target.setStyle("-fx-fill: green");
             }
-        });
-
-        source.setOnRotationStarted(new EventHandler<RotateEvent>() {
-            @Override
-            public void handle(RotateEvent event) {
-                event.consume();
+            else {
+                target.setStyle("-fx-fill: red");
             }
-        });
-
-        source.setOnRotationFinished(new EventHandler<RotateEvent>() {
-            @Override
-            public void handle(RotateEvent event) {
-                event.consume();
-            }
-        });
+            sourceDegrees.setText(String.valueOf(df.format(source_angle)));
+            E.consume();
+        }
 
     }
-
 
 }

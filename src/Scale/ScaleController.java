@@ -58,7 +58,10 @@ public class ScaleController extends Arc {
         moveInProgress = true;
         touchPointId = t.getTouchPoint().getId();
 
-        if (t.getTouchCount() >= 5) {
+        if (t.getTouchCount() < 5) {
+            isBracedPosition = false;
+        }
+        else if (t.getTouchCount() >= 4) {
             if (timeline != null) {
                 splitTime = Duration.ZERO;
                 splitTimeSeconds.set(splitTime.toSeconds());
@@ -82,7 +85,7 @@ public class ScaleController extends Arc {
             }
             ScaleLogger.log(Level.INFO, "5th Finger Pressed ");
             ScaleLogger.log(Level.INFO, "Time of tap:" + lastSplit);
-            if (lastSplit.getValue() < 0.5 && !isBracedPosition) {
+            if (lastSplit.getValue() < 0.5 && !isBracedPosition && t.getTouchCount() >= 5) {
                 isBracedPosition = true;
                 getStyleClass().clear();
                 getStyleClass().add("mainFxmlClassBracedSelected");
@@ -108,7 +111,7 @@ public class ScaleController extends Arc {
      * @param E
      */
      public void handle(ActionEvent E) {
-         double max = 2;
+         double max = 1.5;
          double min = 0.5;
          double scale = Math.random() * ((max - min) + 1) + min;
         target.setScaleX(scale);
@@ -120,21 +123,25 @@ public class ScaleController extends Arc {
 
 
     public void setOnZoom(ZoomEvent t) {
-        source.setScaleX(source.getScaleX() * t.getZoomFactor());
-        source.setScaleY(source.getScaleY() * t.getZoomFactor());
-        sourceScale.setText(String.valueOf(df.format(source.getScaleX())));
-        double comparison = source.getScaleX() - target.getScaleX();
-        if (
-                comparison > -0.05 &&
-                comparison < 0.05 &&
-                isBracedPosition)
-        {
-            target.setStyle("-fx-fill: green");
-        } else {
-            target.setStyle("-fx-fill: red");
-        }
-        t.consume();
-    }
-
+         if (isBracedPosition) {
+             source.setScaleX(source.getScaleX() * t.getZoomFactor());
+             source.setScaleY(source.getScaleY() * t.getZoomFactor());
+             sourceScale.setText(String.valueOf(df.format(source.getScaleX())));
+             double comparison = source.getScaleX() - target.getScaleX();
+             if (
+                     comparison > -0.05 &&
+                             comparison < 0.05 &&
+                             isBracedPosition)
+             {
+                 target.setStyle("-fx-fill: green");
+             } else {
+                 target.setStyle("-fx-fill: red");
+             }
+             t.consume();
+         }
+     }
 
 }
+
+
+

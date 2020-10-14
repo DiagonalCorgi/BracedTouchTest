@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane onTouchPressed="#onTouchPressed" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Rotation.RotationController">
+<AnchorPane onRotate="#setOnRotate" onTouchPressed="#onTouchPressed" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Rotation.RotationController">
    <GridPane onTouchPressed="#onTouchPressed" prefHeight="600.0" prefWidth="800.0">
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -18,7 +18,7 @@
       <children>
          <Button fx:id="rBtn" mnemonicParsing="false" onAction="#handle" text="Randomize Angle" />
          <Label fx:id="sourceDegrees" text="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-          <Arc fx:id="source" fill="DODGERBLUE" length="270.0" onRotate="#setOnRotate" onTouchPressed="#onTouchPressed" radiusX="100.0" radiusY="100.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+          <Arc fx:id="source" fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
          <Label fx:id="targetDegrees" text="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
           <Arc fx:id="target" fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       </children>

@@ -61,7 +61,10 @@ public class DragController extends Circle {
         moveInProgress = true;
         touchPointId = t.getTouchPoint().getId();
 
-        if (t.getTouchCount() >= 5) {
+        if (t.getTouchCount() < 5) {
+            isBracedPosition = false;
+        }
+        else if (t.getTouchCount() >= 4) {
             if (timeline != null) {
                 splitTime = Duration.ZERO;
                 splitTimeSeconds.set(splitTime.toSeconds());
@@ -85,7 +88,7 @@ public class DragController extends Circle {
             }
             DragLogger.log(Level.INFO, "5th Finger Pressed ");
             DragLogger.log(Level.INFO, "Time of tap:" + lastSplit);
-            if (lastSplit.getValue() < 0.5 && !isBracedPosition) {
+            if (lastSplit.getValue() < 0.5 && !isBracedPosition && t.getTouchCount() >= 5) {
                 isBracedPosition = true;
                 SourceCircle.setStyle("-fx-fill: green");
             } else if (lastSplit.getValue() > 0.5) {
@@ -140,23 +143,25 @@ public class DragController extends Circle {
         //Finds how close the icon is to the target
         SourceCircle.setOnTouchMoved(new EventHandler<TouchEvent>() {
             @Override public void handle(TouchEvent event) {
-                Circle chosen_target = targetList.get(0);
-                if (event.getTouchPoint().getId() == touchId) {
-                    SourceCircle.setTranslateX(event.getTouchPoint().getSceneX() - newX);
-                    SourceCircle.setTranslateY(event.getTouchPoint().getSceneY() - newY);
-                    double SourceCoordsX = SourceCircle.getTranslateX() + SourceCircle.getLayoutX();
-                    double SourceCoordsY = SourceCircle.getTranslateY() + SourceCircle.getLayoutY();
-                     if ((SourceCoordsX - chosen_target.getLayoutX() < 10 &&
-                     SourceCoordsX - chosen_target.getLayoutX() > -10) &&
-                     (SourceCoordsY - chosen_target.getLayoutY() < 10 &&
-                     SourceCoordsY - chosen_target.getLayoutY() > -10) && isBracedPosition) {
-                     chosen_target.setStyle("-fx-fill: green");
-                     }
+                for (int i = 0; i < 8; i++) {
+                    Circle chosen_target = targetList.get(i);
+                    if (event.getTouchPoint().getId() == touchId) {
+                        SourceCircle.setTranslateX(event.getTouchPoint().getSceneX() - newX);
+                        SourceCircle.setTranslateY(event.getTouchPoint().getSceneY() - newY);
+                        double SourceCoordsX = SourceCircle.getTranslateX() + SourceCircle.getLayoutX();
+                        double SourceCoordsY = SourceCircle.getTranslateY() + SourceCircle.getLayoutY();
+                        if ((SourceCoordsX - chosen_target.getLayoutX() < 10 &&
+                                SourceCoordsX - chosen_target.getLayoutX() > -10) &&
+                                (SourceCoordsY - chosen_target.getLayoutY() < 10 &&
+                                        SourceCoordsY - chosen_target.getLayoutY() > -10) && isBracedPosition) {
+                            chosen_target.setStyle("-fx-fill: green");
+                        }
+                    }
+                    event.consume();
                 }
-                event.consume();
             }
-        });
 
+        });
 
         SourceCircle.setOnTouchReleased(new EventHandler<TouchEvent>() {
             @Override
